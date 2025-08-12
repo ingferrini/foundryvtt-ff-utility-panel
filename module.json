@@ -1,0 +1,29 @@
+{
+  "id": "wildemount-starter",
+  "title": "Wildemount Starter (Foundry v13 + TS)",
+  "description": "Starter per Foundry VTT v13 con ApplicationV2, DocumentSheetV2, macro seeder, condition picker, effetti tematici Luxon, e strumenti pronti per The Forge.",
+  "version": "1.2.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "Francesco Ferrini & GPT-5 Thinking"
+    }
+  ],
+  "esmodules": [
+    "dist/module.js"
+  ],
+  "styles": [
+    "dist/module.css"
+  ],
+  "scripts": [],
+  "languages": [],
+  "packs": [],
+  "url": "https://github.com/your-user/wildemount-starter",
+  "manifest": "https://raw.githubusercontent.com/your-user/wildemount-starter/main/module.json",
+  "download": "https://github.com/your-user/wildemount-starter/releases/download/v1.2.0/wildemount-starter.zip",
+  "license": "MIT",
+  "readme": "README.md"
+}

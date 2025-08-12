@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "types": [
+      "@league-of-foundry-developers/foundry-vtt-types/src/foundry"
+    ],
+    "baseUrl": ".",
+    "paths": {},
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}
