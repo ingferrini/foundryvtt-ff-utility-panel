@@ -11,8 +11,6 @@
     "types": [
       "@league-of-foundry-developers/foundry-vtt-types/src/foundry"
     ],
-    "baseUrl": ".",
-    "paths": {},
     "skipLibCheck": true
   },
   "include": [
