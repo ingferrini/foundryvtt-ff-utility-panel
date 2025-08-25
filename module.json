@@ -4,64 +4,25 @@
   "id": "foundryvtt-ff-utility-panel",
   "title": "FF Utility Panel (v13 + dnd5e 5.1.2)",
   "description": "Pannello DM/Player: Gestione HP/Status, Note GM token, Condizioni, Effetti Attivi, Luxon blessing, Actor/Item Sheet V2 opzionali, Macro seeder.",
-  "version": "1.0.4",
-  "authors": [
-    {
-      "name": "Francesco Ferrini"
-    }
-  ],
-  "compatibility": {
-    "minimum": "13",
-    "verified": "13.347"
-  },
+  "version": "1.0.5",
+  "authors": [{ "name": "Francesco Ferrini" }],
+  "compatibility": { "minimum": "13", "verified": "13.347" },
   "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {
-          "verified": "5.1.2"
-        }
-      }
-    ],
-    "requires": [
-      {
-        "id": "lib-wrapper",
-        "type": "module"
-      }
-    ],
+    "systems": [{ "id": "dnd5e", "type": "system", "compatibility": { "verified": "5.1.2" } }],
+    "requires": [{ "id": "lib-wrapper", "type": "module" }],
     "recommends": [
-      {
-        "id": "midi-qol",
-        "type": "module"
-      },
-      {
-        "id": "dae",
-        "type": "module"
-      },
-      {
-        "id": "itemacro",
-        "type": "module"
-      },
-      {
-        "id": "dfreds-convenient-effects",
-        "type": "module"
-      },
-      {
-        "id": "gm-notes",
-        "type": "module"
-      }
+      { "id": "midi-qol", "type": "module" },
+      { "id": "dae", "type": "module" },
+      { "id": "itemacro", "type": "module" },
+      { "id": "dfreds-convenient-effects", "type": "module" },
+      { "id": "gm-notes", "type": "module" }
     ]
   },
   "url": "https://github.com/ingferrini/foundryvtt-ff-utility-panel",
-  "manifest": "https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.4/module.json",
-  "download": "https://github.com/ingferrini/foundryvtt-ff-utility-panel/releases/download/v1.0.4/foundryvtt-ff-utility-panel-1.0.4.zip",
-  "esmodules": [
-    "dist/module.js"
-  ],
-  "styles": [
-    "dist/module.css"
-  ],
+  "manifest": "https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.5/module.json",
+  "download": "https://github.com/ingferrini/foundryvtt-ff-utility-panel/releases/download/v1.0.5/foundryvtt-ff-utility-panel-1.0.5.zip",
+  "esmodules": ["dist/module.js"],
+  "styles": ["dist/module.css"],
   "readme": "README.md",
   "license": "MIT"
 }
