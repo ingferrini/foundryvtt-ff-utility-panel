@@ -219,10 +219,29 @@ class FFPanel extends foundry.applications.api.ApplicationV2{
         return root;
     }
 
-    async _replaceHTML(element, html) {
-        const wc = ensureContainer(this);
-        (wc ?? element).replaceChildren(html);
-    }
+	async _replaceHTML(element, html) {
+	// Target sicuro: crea/ottieni il contenitore window-content
+		const target = ensureContainer(this) ?? element;
+
+		// Evita HierarchyRequestError: se il nuovo nodo contiene il target (o viceversa) clona
+		let node = html;
+		try {
+		  if (node && node.contains && node.contains(target)) {
+			node = node.cloneNode(true);
+		  }
+		} catch(e) {
+		  // ignore
+		}
+
+		// Alternativa robusta: usare un DocumentFragment
+		const frag = document.createDocumentFragment();
+		frag.append(node);
+
+		// Svuota e monta
+		while (target.firstChild) target.removeChild(target.firstChild);
+		target.appendChild(frag);
+	}
+
 
     async #promptNumber(title, def=0){
         return await Dialog.prompt({

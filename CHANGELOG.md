@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.6 — Fix DOM HierarchyError in _replaceHTML
+- Corretto `_replaceHTML`: ora clona il nodo HTML (o usa un DocumentFragment) prima di fare `replaceChildren`, evitando l’errore "The new child element contains the parent".
+- Mantenuta la creazione esplicita di `section.window-content` come fallback.
+
 ## v1.0.5 — Render robusto (V2)
 - Creazione esplicita del contenitore `section.window-content` se assente (fallback sicuro).
 - Pipeline ApplicationV2 robusta: `_renderHTML`/`_replaceHTML` safe e fallback in caso di errori.
