@@ -216,6 +216,10 @@ class FFPanel extends foundry.applications.api.ApplicationV2{
     return root;
   }
 
+  async _replaceHTML(element, html) {
+    element.replaceChildren(html);
+  }
+
   async #promptNumber(title, def=0){
     return await Dialog.prompt({
       title, label:"OK", callback: html => Number(html.find("input")[0].value||def),
@@ -301,6 +305,9 @@ class FFActorSheet extends foundry.applications.api.DocumentSheetV2 {
     this.#form = root;
     return root;
   }
+  async _replaceHTML(element, html) {
+    element.replaceChildren(html);
+  }
   static async submit(event){
     event.preventDefault();
     const fd = new FormData(this.#form); const upd = {};
@@ -335,6 +342,9 @@ class FFItemSheet extends foundry.applications.api.DocumentSheetV2 {
         <button type="submit" class="ffp-btn" data-action="save">Salva</button>
       </div>`;
     this.#form=root; return root;
+  }
+  async _replaceHTML(element, html) {
+    element.replaceChildren(html);
   }
   static async submit(e){ e.preventDefault(); const fd = new FormData(this.#form); const upd={}; for(const [k,v] of fd.entries()) upd[k]=v; await this.document.update(upd); ui.notifications?.info("Item aggiornato."); }
 }
@@ -399,5 +409,27 @@ Hooks.once("ready", async () => {
   if (!seeded) {
     await seedMacros();
     await game.settings.set(MOD_ID, setting, true);
+  }
+});
+
+// Quick access button in Scene Controls (left toolbar) under Token controls
+Hooks.on("getSceneControlButtons", (controls) => {
+  try {
+    const token = controls.find(c => c.name === "token");
+    if (!token) return;
+    const exists = token.tools?.some(t => t?.name === "ff-panel");
+    if (exists) return;
+    token.tools.push({
+      name: "ff-panel",
+      title: "FF Utility Panel",
+      icon: "fas fa-hat-wizard",
+      button: true,
+      onClick: () => {
+        try { FFUtil.api.openPanel(); }
+        catch (e) { console.error("[foundryvtt-ff-utility-panel] openPanel failed:", e); ui.notifications?.error("Impossibile aprire FF Utility Panel."); }
+      }
+    });
+  } catch (e) {
+    console.error("[foundryvtt-ff-utility-panel] getSceneControlButtons error:", e);
   }
 });

@@ -10,11 +10,12 @@ Pannello Utility per FoundryVTT v13.347 + dnd5e 5.1.2.
 - **Benedizione di Luxon**: con Midi‑QoL aggiunge `+1d4` a tiri d'attacco e TS; senza Midi fallback +1 ai checks abilità.
 - **Actor/Item Sheet V2 (opzionali)**: griglie competenze armi/armature.
 - **Macro seeder**: crea cartella “Wildemount Macros” con macro utili (inclusa “Export Mod Versions (v13)” corretta per Collection).
+- **Nuovo (v1.0.2)**: bottone dedicato nei **Scene Controls** (barra sinistra → Token) per aprire il pannello.
 
 ## Installazione via Manifest (GitHub)
-URL manifest (versione 1.0.0):
+URL manifest (versione 1.0.2):
 ```
-https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.0/module.json
+https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.2/module.json
 ```
 
 ### The Forge
