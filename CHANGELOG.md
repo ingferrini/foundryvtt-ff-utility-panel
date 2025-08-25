@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.8 — Fix getFlag/setFlag su TokenDocument
+- Usati `token.document.getFlag/setFlag` (con fallback) al posto di `token.getFlag/setFlag` in v13.
+- Evitato `TypeError: t.getFlag is not a function` all’apertura del pannello.
+
+## v1.0.7 — AppV2 + Handlebars mixin
+- Migrazione a HandlebarsApplicationMixin(AppV2) e template `templates/panel.hbs`.
+- Listener collegati in `_onRender`.
+
 ## v1.0.6 — Fix DOM HierarchyError in _replaceHTML
 - Corretto `_replaceHTML`: ora clona il nodo HTML (o usa un DocumentFragment) prima di fare `replaceChildren`, evitando l’errore "The new child element contains the parent".
 - Mantenuta la creazione esplicita di `section.window-content` come fallback.

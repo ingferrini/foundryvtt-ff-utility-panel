@@ -3,6 +3,8 @@ const MOD_ID = "foundryvtt-ff-utility-panel";
 const NS = "FFUtil";
 const gp = (...a)=> foundry?.utils?.getProperty?.(...a);
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+const getTokenDoc = (t) => t?.document ?? t ?? null;
+
 
 function hasMidi(){ return !!game.modules.get("midi-qol")?.active; }
 
@@ -63,20 +65,24 @@ class FFPanel extends HandlebarsApplicationMixin(ApplicationV2){
     const t = canvas.tokens?.controlled[0] ?? null;
     const actor = t?.actor ?? null;
 
-    // GM Note (compat: gm-notes o flag world)
+    // GM Note (compat: gm-notes o flag world) — v13 usa i flag sul TokenDocument
     let gmNote = "";
     let noteScopeKey = { scope:"world", key:"gmnote" };
-    if(t){
-      const f1 = t.getFlag("gm-notes","notes");
-      const f2 = t.getFlag("gm-notes","gmNote");
+    if (t) {
+      const td = getTokenDoc(t);
+      const safeGet = (scope, key) => td?.getFlag ? td.getFlag(scope, key) : undefined;
+
+      const f1 = safeGet("gm-notes","notes");
+      const f2 = safeGet("gm-notes","gmNote");
       if (typeof f1 === "string"){ gmNote = f1; noteScopeKey = {scope:"gm-notes", key:"notes"}; }
       else if (typeof f2 === "string"){ gmNote = f2; noteScopeKey = {scope:"gm-notes", key:"gmNote"}; }
       else {
-        const f3 = t.getFlag("world","gmnote");
+        const f3 = safeGet("world","gmnote");
         if (typeof f3 === "string"){ gmNote = f3; noteScopeKey = {scope:"world", key:"gmnote"}; }
       }
     }
     this._noteScopeKey = noteScopeKey;
+
 
     // Effects
     const effects = actor?.effects ? actor.effects.map(e => ({
@@ -150,14 +156,20 @@ class FFPanel extends HandlebarsApplicationMixin(ApplicationV2){
     });
 
     // Note GM
-    root.querySelector(".save-note")?.addEventListener("click", async () => {
+      root.querySelector(".save-note")?.addEventListener("click", async () => {
       const t = canvas.tokens?.controlled[0];
-      if(!t) return ui.notifications?.warn("Nessun token selezionato.");
+      const td = getTokenDoc(t);
+      if(!td) return ui.notifications?.warn("Nessun token selezionato.");
       const text = String(root.querySelector(".ffp-note")?.value ?? "");
       const {scope, key} = (this._noteScopeKey ?? {scope:"world", key:"gmnote"});
-      await t.setFlag(scope, key, text);
-      ui.notifications?.info("Note GM salvate sul token.");
+      if (typeof td.setFlag === "function") {
+        await td.setFlag(scope, key, text);
+        ui.notifications?.info("Note GM salvate sul token.");
+      } else {
+        ui.notifications?.error("Impossibile salvare la nota (TokenDocument mancante).");
+      }
     });
+
   }
 
   async #promptNumber(title, def=0){
