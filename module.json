@@ -1,11 +1,11 @@
 {
-  "id": "wildemount-starter",
-  "title": "Wildemount Starter (Foundry v13 + TS)",
-  "description": "Starter per Foundry VTT v13 con ApplicationV2, sheets V2, macro seeder, condition picker, effetti Luxon e widget effetti attivi.",
+  "id": "wildemount-starter-ff",
+  "title": "Wildemount Starter FF (v13 + dnd5e 5.1.2)",
+  "description": "Starter module per Foundry 13.347 e dnd5e 5.1.2 con pannello, condition picker, widget effetti, sheet V2, macro seeder, Luxon (Midi‑QoL aware).",
   "version": "1.3.0",
   "compatibility": {
     "minimum": "13",
-    "verified": "13"
+    "verified": "13.347"
   },
   "authors": [
     {
@@ -18,7 +18,11 @@
   "styles": [
     "dist/module.css"
   ],
+  "scripts": [],
   "packs": [],
+  "url": "https://github.com/your-user/wildemount-starter-ff",
+  "manifest": "https://raw.githubusercontent.com/your-user/wildemount-starter-ff/main/module.json",
+  "download": "https://github.com/your-user/wildemount-starter-ff/releases/download/v1.3.0/wildemount-starter-ff.zip",
   "license": "MIT",
   "readme": "README.md"
 }
