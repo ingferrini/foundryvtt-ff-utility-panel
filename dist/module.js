@@ -1,7 +1,5 @@
 
-/* FF Utility Panel — Foundry v13 + dnd5e 5.1.2
- * Features: HP/Status, GM Notes, Conditions, Active Effects, Luxon Blessing, optional V2 sheets, Macro seeder
- */
+/* FF Utility Panel — Foundry v13 + dnd5e 5.1.2 */
 const MOD_ID = "foundryvtt-ff-utility-panel";
 const NS = "FFUtil";
 
@@ -17,8 +15,7 @@ async function seedMacros(){
       {name:"Cura Selezionato (GM)", command:`${NS}.api.healSelectedGM(10);`, img:"icons/magic/life/heart-cross-strong-flame-green.webp"},
       {name:"Prono (toggle)", command:`(async()=>{const t=canvas.tokens?.controlled[0]; if(!t?.actor) return ui.notifications?.warn('Seleziona un token.'); const fn=t.actor.toggleCondition; if(typeof fn==='function') return fn.call(t.actor,'prone'); await t.actor.setFlag('${MOD_ID}','cond.prone',!(t.actor.getFlag('${MOD_ID}','cond.prone')));})();`, img:"icons/magic/control/fear-fright-white.webp"},
       {name:"Toggle Condizione (prompt)", command:`(async()=>{const t=canvas.tokens?.controlled[0]; if(!t?.actor) return ui.notifications?.warn('Seleziona un token.'); const dnd=CONFIG?.DND5E; const choices=dnd?.conditions?Object.keys(dnd.conditions):['prone','blinded','grappled','frightened']; const key=await Dialog.prompt({title:'Condizione', content:\`<p>Quale condizione?</p><select id='c'>\${choices.map(c=>\`<option>\${c}</option>\`).join('')}</select>\`, label:'OK', callback: html=>html.find('#c').val()}); if(!key) return; const fn=t.actor.toggleCondition; if(typeof fn==='function') return fn.call(t.actor, key); await t.actor.setFlag('${MOD_ID}',\`cond.\${key}\`,!t.actor.getFlag('${MOD_ID}',\`cond.\${key}\`));})();`, img:"icons/magic/control/debuff-energy-snare-purple.webp"},
-      // Export mod versions - Collection-safe (v13)
-      {name:"Export Mod Versions (v13)", command:`(function(){const list=game.modules.map(m=>{const a=m?.authors?.length?m.authors.map(x=>x?.name??x).join(', '):(m?.author??'');const c=m?.compatibility??{};const min=c.minimum??'';const ver=c.verified??'';return{ id:m.id??'', title:m.title??m.id??'', version:m.version??'', active:!!m.active, compatible:(min||ver)?\`\${min||'?'}–\${ver||'?'}\`:'', authors:a, manifest:m.manifest??'', url:m.url??''};}).sort((a,b)=>a.id.localeCompare(b.id));const core=game?.version??(game?.release?.generation? \`V\${game.release.generation}.\${game.release.build??''}\`:'unknown');const sys={id:game.system?.id??'',title:game.system?.title??'',version:game.system?.version??''};const header=\`# Modules (Foundry \${core}) — System \${sys.id} \${sys.version}\n\`;const lines=list.map(m=>\`\${m.id}@\${m.version} — \${m.title}\${m.active?' [ACTIVE]':''}\`);const txt=header+lines.join('\\n')+'\\n';const esc=s=>'"'+String(s??'').replaceAll('"','""')+'"';const csvHeader=['id','title','version','active','compatible','authors','manifest','url'].join(',');const csv=[csvHeader].concat(list.map(m=>[m.id,m.title,m.version,m.active,m.compatible,m.authors,m.manifest,m.url].map(esc).join(','))).join('\\n');const json=JSON.stringify({coreVersion:core, system:sys, count:list.length, modules:list},null,2);const stamp=new Date().toISOString().replace(/[:.]/g,'-');foundry.utils.saveDataToFile(txt,'text/plain',\`modules-\${stamp}.txt\`);foundry.utils.saveDataToFile(csv,'text/csv',\`modules-\${stamp}.csv\`);foundry.utils.saveDataToFile(json,'application/json',\`modules-\${stamp}.json\`);(async()=>{try{await navigator.clipboard.writeText(txt);ui.notifications?.info('Lista moduli copiata negli appunti (+ file scaricati).');}catch{new Dialog({title:'Copia Lista Moduli',content:\`<textarea style="width:100%;height:300px">\${foundry.utils.escapeHTML(txt)}</textarea>\`,buttons:{ok:{label:'OK'}}}).render(true);ui.notifications?.info('Impossibile usare il clipboard API; aperto box per copiare.');}})();})()`, img:"icons/tools/scribal/ink-quill-pink.webp"}
+      {name:"Export Mod Versions (v13)", command:`(function(){const list=game.modules.map(m=>{const a=m?.authors?.length?m.authors.map(x=>x?.name??x).join(', '):(m?.author??'');const c=m?.compatibility??{};const min=c.minimum??'';const ver=c.verified??'';return{ id:m.id??'', title:m.title??m.id??'', version:m.version??'', active:!!m.active, compatible:(min||ver)?\`\${min||'?'}–\${ver||'?'}\`:'', authors:a, manifest:m.manifest??'', url:m.url??''};}).sort((a,b)=>a.id.localeCompare(b.id));const core=game?.version??(game?.release?.generation?\`V\${game.release.generation}.\${game.release.build??''}\`:'unknown');const sys={id:game.system?.id??'',title:game.system?.title??'',version:game.system?.version??''};const header=\`# Modules (Foundry \${core}) — System \${sys.id} \${sys.version}\n\`;const lines=list.map(m=>\`\${m.id}@\${m.version} — \${m.title}\${m.active?' [ACTIVE]':''}\`);const txt=header+lines.join('\\n')+'\\n';const esc=s=>'"'+String(s??'').replaceAll('"','""')+'"';const csvHeader=['id','title','version','active','compatible','authors','manifest','url'].join(',');const csv=[csvHeader].concat(list.map(m=>[m.id,m.title,m.version,m.active,m.compatible,m.authors,m.manifest,m.url].map(esc).join(','))).join('\\n');const json=JSON.stringify({coreVersion:core, system:sys, count:list.length, modules:list},null,2);const stamp=new Date().toISOString().replace(/[:.]/g,'-');foundry.utils.saveDataToFile(txt,'text/plain',\`modules-\${stamp}.txt\`);foundry.utils.saveDataToFile(csv,'text/csv',\`modules-\${stamp}.csv\`);foundry.utils.saveDataToFile(json,'application/json',\`modules-\${stamp}.json\`);(async()=>{try{await navigator.clipboard.writeText(txt);ui.notifications?.info('Lista moduli copiata negli appunti (+ file scaricati).');}catch{new Dialog({title:'Copia Lista Moduli',content:\`<textarea style="width:100%;height:300px">\${foundry.utils.escapeHTML(txt)}</textarea>\`,buttons:{ok:{label:'OK'}}}).render(true);ui.notifications?.info('Impossibile usare il clipboard API; aperto box per copiare.');}})();})()`, img:"icons/tools/scribal/ink-quill-pink.webp"}
     ];
     for(const def of macros){
       const existing = game.macros?.getName(def.name);
@@ -99,9 +96,9 @@ class FFPanel extends foundry.applications.api.ApplicationV2{
 
     // hp data
     const hp = actor ? {
-      value: getProperty(actor, "system.attributes.hp.value") ?? 0,
-      max:   getProperty(actor, "system.attributes.hp.max") ?? 0,
-      temp:  getProperty(actor, "system.attributes.hp.temp") ?? 0
+      value: foundry.utils.getProperty(actor, "system.attributes.hp.value") ?? 0,
+      max:   foundry.utils.getProperty(actor, "system.attributes.hp.max") ?? 0,
+      temp:  foundry.utils.getProperty(actor, "system.attributes.hp.temp") ?? 0
     } : null;
 
     return { user: game.user?.name ?? "Unknown", conds, actor, token: t, gmNote, effects, hp };
@@ -266,13 +263,13 @@ class FFActorSheet extends foundry.applications.api.DocumentSheetV2 {
 
   async _renderContext(){
     const a = this.document;
-    const hp = getProperty(a, "system.attributes.hp.value") ?? 0;
-    const max= getProperty(a, "system.attributes.hp.max") ?? 0;
+    const hp = foundry.utils.getProperty(a, "system.attributes.hp.value") ?? 0;
+    const max= foundry.utils.getProperty(a, "system.attributes.hp.max") ?? 0;
     const dnd = CONFIG?.DND5E ?? {};
     const weaponDict = dnd.weaponProficiencies ?? dnd.weaponProficienciesMap ?? {};
     const armorDict  = dnd.armorProficiencies ?? dnd.armorProficienciesMap ?? {};
-    const wp = getProperty(a,"system.traits.weaponProf.value") ?? getProperty(a,"system.traits.weapons.value") ?? [];
-    const ap = getProperty(a,"system.traits.armorProf.value")  ?? getProperty(a,"system.traits.armor.value")   ?? [];
+    const wp = foundry.utils.getProperty(a,"system.traits.weaponProf.value") ?? foundry.utils.getProperty(a,"system.traits.weapons.value") ?? [];
+    const ap = foundry.utils.getProperty(a,"system.traits.armorProf.value")  ?? foundry.utils.getProperty(a,"system.traits.armor.value")   ?? [];
     const wlist = Object.keys(weaponDict).map(k=>({key:k,label:weaponDict[k]??k,on:wp?.includes(k)}));
     const alist = Object.keys(armorDict).map(k=>({key:k,label:armorDict[k]??k,on:ap?.includes(k)}));
     return { name:a.name, hp, max, wlist, alist };
@@ -305,17 +302,15 @@ class FFActorSheet extends foundry.applications.api.DocumentSheetV2 {
     this.#form = root;
     return root;
   }
-  async _replaceHTML(element, html) {
-    element.replaceChildren(html);
-  }
+  async _replaceHTML(element, html) { element.replaceChildren(html); }
   static async submit(event){
     event.preventDefault();
     const fd = new FormData(this.#form); const upd = {};
     for(const [k,v] of fd.entries()){ if(k==="__wp"||k==="__ap") continue; upd[k]=v; }
     const wp = Array.from(this.#form.querySelectorAll('input[name="__wp"]:checked')).map(i=>i.value);
     const ap = Array.from(this.#form.querySelectorAll('input[name="__ap"]:checked')).map(i=>i.value);
-    if (getProperty(this.document,"system.traits.weaponProf")!==undefined) upd["system.traits.weaponProf.value"]=wp; else upd["system.traits.weapons.value"]=wp;
-    if (getProperty(this.document,"system.traits.armorProf") !==undefined) upd["system.traits.armorProf.value"]=ap; else upd["system.traits.armor.value"]=ap;
+    if (foundry.utils.getProperty(this.document,"system.traits.weaponProf")!==undefined) upd["system.traits.weaponProf.value"]=wp; else upd["system.traits.weapons.value"]=wp;
+    if (foundry.utils.getProperty(this.document,"system.traits.armorProf") !==undefined) upd["system.traits.armorProf.value"]=ap; else upd["system.traits.armor.value"]=ap;
     await this.document.update(upd);
     ui.notifications?.info("Actor aggiornato.");
   }
@@ -329,7 +324,7 @@ class FFItemSheet extends foundry.applications.api.DocumentSheetV2 {
   };
   static PARTS = { form: { template: null } };
   #form;
-  async _renderContext(){ const d=this.document; return { name:d.name, rarity: getProperty(d,"system.rarity") ?? ""}; }
+  async _renderContext(){ const d=this.document; return { name:d.name, rarity: foundry.utils.getProperty(d,"system.rarity") ?? ""}; }
   async _renderHTML(ctx){
     const root = document.createElement("form"); root.classList.add("ffp-panel");
     root.innerHTML = `
@@ -343,9 +338,7 @@ class FFItemSheet extends foundry.applications.api.DocumentSheetV2 {
       </div>`;
     this.#form=root; return root;
   }
-  async _replaceHTML(element, html) {
-    element.replaceChildren(html);
-  }
+  async _replaceHTML(element, html) { element.replaceChildren(html); }
   static async submit(e){ e.preventDefault(); const fd = new FormData(this.#form); const upd={}; for(const [k,v] of fd.entries()) upd[k]=v; await this.document.update(upd); ui.notifications?.info("Item aggiornato."); }
 }
 
@@ -377,7 +370,7 @@ Hooks.once("ready", async () => {
       const actor = await fromUuid(actorUuid);
       if (!actor || !actor.isOwner) return;
       const path = "system.attributes.hp";
-      const hp = foundry.utils.duplicate(getProperty(actor, path) ?? {});
+      const hp = foundry.utils.duplicate(foundry.utils.getProperty(actor, path) ?? {});
       switch(op){
         case "hpDelta": hp.value = Math.max(0, (Number(hp.value||0) + Number(payload.amt||0))); await actor.update({[path]: hp}); break;
         case "hpSet":   hp.value = Math.max(0, Number(payload.to||0)); await actor.update({[path]: hp}); break;

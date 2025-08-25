@@ -1,31 +1,21 @@
 # FF Utility Panel
 
-Pannello Utility per FoundryVTT v13.347 + dnd5e 5.1.2.
+Modulo utility per FoundryVTT v13.347 + dnd5e 5.1.2.
 
 ## Funzionalità principali
-- **Gestione HP/Status rapida**: ±1/±5, Full Heal, Kill, Set HP, Temp HP, Toggle Defeated (via socket lato GM).
-- **Note rapide del DM (Token)**: legge/scrive note prioritarie su `gm-notes` e fallback `flags.world.gmnote`.
-- **Picker condizioni**: dalla config di dnd5e; toggle veloce di condizioni sul token selezionato.
-- **Widget Effetti Attivi**: elenco con icone, durata residua, enable/disable, delete.
-- **Benedizione di Luxon**: con Midi‑QoL aggiunge `+1d4` a tiri d'attacco e TS; senza Midi fallback +1 ai checks abilità.
-- **Actor/Item Sheet V2 (opzionali)**: griglie competenze armi/armature.
-- **Macro seeder**: crea cartella “Wildemount Macros” con macro utili (inclusa “Export Mod Versions (v13)” corretta per Collection).
-- **Nuovo (v1.0.2)**: bottone dedicato nei **Scene Controls** (barra sinistra → Token) per aprire il pannello.
+- Gestione HP/Status (±1/±5, Full Heal, Kill, Set, Temp HP, Toggle Defeated).
+- Note rapide del DM (token) compatibili con `gm-notes` + fallback `flags.world.gmnote`.
+- Picker condizioni (CONFIG.DND5E.conditions) e toggle veloce.
+- Widget Effetti Attivi (icona, durata residua, enable/disable, delete).
+- Benedizione di Luxon (+1d4 a attacchi/TS con Midi-QoL; fallback +1 ai checks abilità).
+- Actor/Item Sheet V2 opzionali (competenze armi/armature).
+- Macro seeder (in “Wildemount Macros”), include Export Mod Versions (v13).
+- Bottone rapido nei **Scene Controls** (Token) per aprire il pannello.
 
-## Installazione via Manifest (GitHub)
-URL manifest (versione 1.0.2):
+## Installazione via Manifest
 ```
-https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.2/module.json
+https://raw.githubusercontent.com/ingferrini/foundryvtt-ff-utility-panel/v1.0.4/module.json
 ```
-
-### The Forge
-- Bazaar → Install from Manifest URL → incolla l’URL sopra.
-- Poi abilita il modulo in **Manage Modules** nel tuo mondo.
-
-## Sviluppo / Build
-Questo modulo non richiede build tools: i file sono già in `dist/`.
-- Script principale: `dist/module.js`
-- Stili: `dist/module.css`
 
 ## Licenza
 MIT
